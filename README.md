@@ -32,6 +32,10 @@ catkin_make
 ```
 Download the BEVformer TRT engine file: [BEVformer TRT engine (Google Drive)](https://drive.google.com/file/d/1-eqrNpNvTbiS31IyeI1CvIjoFKI_21P5/view?usp=drive_link)
 
+```bash
+mkdir src/bevformer_pkg/models
+```
+
 Place the downloaded .trt file into `src/bevformer_pkg/models`
 
 Start the ROS nodes:
@@ -48,3 +52,8 @@ Note: Running the launch files in the wrong order may fail because the traffic l
 ## Model checkpoints
 - Checkpoints for each inference node are stored in `src/{package_name}/models`.
 - The BEVformer checkpoint has already been converted to an engine file.
+
+if needed,
+```bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:{tcar python path ex. .local/lib/python3.8}/site-packages/nvidia/cuda_runtime/lib
+```
