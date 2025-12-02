@@ -30,6 +30,9 @@ Build the ROS packages:
 cd tcar_pkg  # or your workspace root
 catkin_make
 ```
+Download the BEVformer TRT engine file: [BEVformer TRT engine (Google Drive)](https://drive.google.com/file/d/1-eqrNpNvTbiS31IyeI1CvIjoFKI_21P5/view?usp=drive_link)
+
+Place the downloaded .trt file into `src/bevformer_pkg/models`
 
 Start the ROS nodes:
 ```bash
