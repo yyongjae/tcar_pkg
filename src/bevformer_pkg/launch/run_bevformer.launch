@@ -1,0 +1,27 @@
+<launch>
+    <param name="/use_sim_time" value="false"/>
+    
+    <arg name="odom_topic" default="/novatel/oem7/odom" />
+    
+    <arg name="queue_length" default="4" />
+
+    <arg name="bev_map_topic" default="/bevformer/bev_map" />
+    <arg name="object_topic" default="/bevformer/objects" />
+
+    <node pkg="bevformer_pkg" type="fast_undistort_node" name="fast_undistort_node" output="screen" />
+
+
+    <node pkg="bevformer_pkg" type="bevformer_node.py" name="bevformer_node" output="screen">
+        <param name="odom_topic" value="$(arg odom_topic)" />
+        <param name="queue_length" value="$(arg queue_length)" />
+        
+        <rosparam param="camera_topics" subst_value="True">
+            - /camera_1_undistorted/compressed
+            - /camera_2_undistorted/compressed
+            - /camera_3_undistorted/compressed
+            - /camera_4_undistorted/compressed
+            - /camera_5_undistorted/compressed
+            - /camera_6_undistorted/compressed
+        </rosparam>
+    </node>
+</launch>

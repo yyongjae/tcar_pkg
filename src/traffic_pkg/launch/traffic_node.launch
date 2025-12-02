@@ -1,0 +1,45 @@
+<launch>
+  <!-- 공통 옵션 -->
+  <arg name="ns"                 default="traffic" />
+  <arg name="use_sim_time"       default="false" />
+
+  <!-- 구독/발행 토픽 -->
+  <arg name="image_topic"        default="/camera_3_undistorted/compressed" />
+  <arg name="pub_detections"     default="/traffic/detections" />
+  <arg name="pub_image"          default="/traffic/image_bbox/compressed" />
+
+  <!-- 모델/파라미터 (models/ 아래 파일명만 지정하세요) -->
+  <arg name="yolo_weights"       default="best.pt" />
+  <arg name="classifier_ckpt"    default="mobilenet.ckpt" />
+  <arg name="traffic_class_id"   default="1" />      <!-- YOLO에서 신호등 class id -->
+  <arg name="det_conf_thres"     default="0.25" />
+  <arg name="crop_pad"           default="2" />
+
+  <group ns="$(arg ns)">
+    <param name="/use_sim_time" value="$(arg use_sim_time)"/>
+
+    <node
+      pkg="traffic_pkg"
+      type="inference_traffic.py"
+      name="traffic_light_inference_node"
+      output="screen"
+      respawn="true"
+      respawn_delay="2">
+
+      <!-- private params (~) -->
+      <param name="image_topic"          value="$(arg image_topic)"/>
+      <param name="yolo_weights"         value="$(arg yolo_weights)"/>
+      <param name="classifier_ckpt"      value="$(arg classifier_ckpt)"/>
+      <param name="traffic_class_id"     value="$(arg traffic_class_id)"/>
+      <param name="det_conf_thres"       value="$(arg det_conf_thres)"/>
+      <param name="crop_pad"             value="$(arg crop_pad)"/>
+      <param name="pub_detections_topic" value="$(arg pub_detections)"/>
+      <param name="pub_image_topic"      value="$(arg pub_image)"/>
+
+      <!-- subscriber remap: 필요 시 다른 카메라 토픽으로 교체 -->
+      <!--
+      <remap from="/camera_3_undistorted/compressed" to="/my_cam/image_raw/compressed"/>
+      -->
+    </node>
+  </group>
+</launch>

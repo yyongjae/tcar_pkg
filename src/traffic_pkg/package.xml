@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>traffic_pkg</name>
+  <version>0.0.1</version>
+  <description>Traffic light detection + state classification (YOLO + MobileNet) ROS1 (Noetic) node</description>
+
+  <maintainer email="ssdkswogns@hanyang.ac.kr">jaehoon</maintainer>
+  <license>BSD</license>
+
+  <!-- Build -->
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <!-- Runtime / Exported -->
+  <depend>rospy</depend>
+  <depend>sensor_msgs</depend>
+  <depend>std_msgs</depend>
+
+  <!-- Python3 & common libs via rosdep (system packages) -->
+  <exec_depend>python3</exec_depend>
+  <exec_depend>python3-numpy</exec_depend>
+  <exec_depend>python3-opencv</exec_depend>
+  <exec_depend>python3-rospkg</exec_depend>
+
+  <export>
+    <build_type>catkin</build_type>
+  </export>
+</package>
